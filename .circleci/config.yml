@@ -1,0 +1,92 @@
+version: 2.1
+
+executors:
+  php:
+    docker:
+      - image: cimg/php:8.5
+
+dir: &dir
+  working_directory: ~/app
+
+jobs:
+  install:
+    <<: *dir
+    executor: php
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.lock" }}
+            - v1-dependencies-
+      - run:
+          name: Install Composer dependencies
+          command: composer install --no-interaction --prefer-dist
+      - save_cache:
+          key: v1-dependencies-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+      - persist_to_workspace:
+          root: ~/app
+          paths:
+            - ./
+
+  pint:
+    <<: *dir
+    executor: php
+    steps:
+      - attach_workspace:
+          at: ~/app
+      - run:
+          name: Pint
+          command: vendor/bin/pint --test
+
+  phpstan:
+    <<: *dir
+    executor: php
+    steps:
+      - attach_workspace:
+          at: ~/app
+      - restore_cache:
+          keys:
+            - &phpstan-cache v1-phpstan-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - v1-phpstan-{{ .Branch }}
+            - v1-phpstan-main
+      - run:
+          name: Create PHPStan cache directory
+          command: mkdir -p storage/phpstan
+      - run:
+          name: PHPStan
+          command: vendor/bin/phpstan analyse --memory-limit=1G
+      - save_cache:
+          key: *phpstan-cache
+          paths:
+            - storage/phpstan
+
+  pest:
+    <<: *dir
+    executor: php
+    steps:
+      - attach_workspace:
+          at: ~/app
+      - run:
+          name: Pest
+          command: |
+            mkdir -p ~/pest
+            vendor/bin/pest --log-junit ~/pest/junit.xml
+      - store_test_results:
+          path: ~/pest
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - install
+      - pint:
+          requires:
+            - install
+      - phpstan:
+          requires:
+            - install
+      - pest:
+          requires:
+            - install
