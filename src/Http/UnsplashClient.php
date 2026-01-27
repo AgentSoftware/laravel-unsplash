@@ -32,7 +32,10 @@ final class UnsplashClient implements UnsplashClientContract
         private readonly ?CacheKeyBuilder $keyBuilder = null,
         ?HttpFactory $http = null
     ) {
-        $this->headers = $this->normalizeHeaders($this->config->headers);
+        $this->headers = array_merge(
+            ['Authorization' => 'Client-ID '.$this->config->accessKey],
+            $this->normalizeHeaders($this->config->headers)
+        );
 
         $factory = $http ?? new HttpFactory;
         $this->http = $factory->createPendingRequest()

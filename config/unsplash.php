@@ -33,7 +33,6 @@ return [
     |
     */
     'headers' => [
-        'Authorization' => 'Client-ID '.env('UNSPLASH_ACCESS_KEY'),
         'Accept-Version' => 'v1',
         'User-Agent' => 'AgentSoftware/laravel-unsplash',
     ],
