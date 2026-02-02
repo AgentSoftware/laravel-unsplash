@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AgentSoftware\Unsplash\Models\Photo;
 
+use AgentSoftware\Unsplash\Models\Concerns\HasAttributionUrl;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
@@ -11,6 +12,8 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 final class PhotoLinks implements Arrayable
 {
+    use HasAttributionUrl;
+
     public function __construct(
         public readonly ?string $self,
         public readonly ?string $html,

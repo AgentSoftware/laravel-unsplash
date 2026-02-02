@@ -23,7 +23,9 @@ final class UnsplashConfig
         public readonly string $cachePrefix,
         public readonly ?string $cacheStore,
         public readonly bool $downloadsEnabled,
-        public readonly ?string $downloadsQueue
+        public readonly ?string $downloadsQueue,
+        public readonly string $utmSource,
+        public readonly string $utmMedium
     ) {}
 
     /**
@@ -43,6 +45,7 @@ final class UnsplashConfig
         $http = isset($config['http']) && is_array($config['http']) ? $config['http'] : [];
         $cache = isset($config['cache']) && is_array($config['cache']) ? $config['cache'] : [];
         $downloads = isset($config['downloads']) && is_array($config['downloads']) ? $config['downloads'] : [];
+        $attribution = isset($config['attribution']) && is_array($config['attribution']) ? $config['attribution'] : [];
 
         return new self(
             $accessKey,
@@ -55,7 +58,9 @@ final class UnsplashConfig
             (string) ($cache['prefix'] ?? 'unsplash:'),
             isset($cache['store']) ? (string) $cache['store'] : null,
             (bool) ($downloads['enabled'] ?? true),
-            isset($downloads['queue']) ? (string) $downloads['queue'] : null
+            isset($downloads['queue']) ? (string) $downloads['queue'] : null,
+            (string) ($attribution['utm_source'] ?? 'your_app_name'),
+            (string) ($attribution['utm_medium'] ?? 'referral')
         );
     }
 }

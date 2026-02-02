@@ -77,4 +77,21 @@ return [
         'queue' => env('UNSPLASH_DOWNLOAD_QUEUE', null),
         'enabled' => true,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Attribution
+    |--------------------------------------------------------------------------
+    |
+    | UTM parameters for Unsplash attribution links. Per Unsplash guidelines,
+    | you must provide attribution when using their photos. These parameters
+    | are appended to photographer and Unsplash links.
+    |
+    | @see https://help.unsplash.com/en/articles/2511315-guideline-attribution
+    |
+    */
+    'attribution' => [
+        'utm_source' => env('UNSPLASH_UTM_SOURCE', 'your_app_name'),
+        'utm_medium' => env('UNSPLASH_UTM_MEDIUM', 'referral'),
+    ],
 ];
