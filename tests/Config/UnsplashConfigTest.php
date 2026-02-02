@@ -22,6 +22,8 @@ it('builds config with defaults when optional sections are missing', function ()
     expect($config->cacheStore)->toBeNull();
     expect($config->downloadsEnabled)->toBeTrue();
     expect($config->downloadsQueue)->toBeNull();
+    expect($config->utmSource)->toBe('your_app_name');
+    expect($config->utmMedium)->toBe('referral');
 });
 
 it('builds config with provided options', function (): void {
@@ -45,6 +47,10 @@ it('builds config with provided options', function (): void {
             'enabled' => false,
             'queue' => 'downloads',
         ],
+        'attribution' => [
+            'utm_source' => 'my_app',
+            'utm_medium' => 'custom_medium',
+        ],
     ]);
 
     expect($config->accessKey)->toBe('abc123');
@@ -58,6 +64,8 @@ it('builds config with provided options', function (): void {
     expect($config->cacheStore)->toBe(\Psr\SimpleCache\CacheInterface::class);
     expect($config->downloadsEnabled)->toBeFalse();
     expect($config->downloadsQueue)->toBe('downloads');
+    expect($config->utmSource)->toBe('my_app');
+    expect($config->utmMedium)->toBe('custom_medium');
 });
 
 it('throws exception when access key is missing', function (): void {
