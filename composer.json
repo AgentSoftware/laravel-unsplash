@@ -9,7 +9,7 @@
     "spectre"
   ],
   "Homepage": "https://github.com/agentsoftware/laravel-unsplash",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "library",
   "license": "MIT",
   "require": {
