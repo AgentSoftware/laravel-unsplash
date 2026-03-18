@@ -1,0 +1,10 @@
+#!/bin/sh
+
+echo "Running Pint..."
+composer pint -- --test
+
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "Pint found style issues. Run 'composer pint' to fix them."
+    exit 1
+fi
