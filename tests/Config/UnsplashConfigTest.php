@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use AgentSoftware\Unsplash\Config\UnsplashConfig;
 use AgentSoftware\Unsplash\Exceptions\InvalidConfigurationException;
+use Psr\SimpleCache\CacheInterface;
 
 it('builds config with defaults when optional sections are missing', function (): void {
     $config = UnsplashConfig::fromArray([
@@ -41,7 +42,7 @@ it('builds config with provided options', function (): void {
             'enabled' => false,
             'ttl_seconds' => 120,
             'prefix' => 'unsplash:test:',
-            'store' => \Psr\SimpleCache\CacheInterface::class,
+            'store' => CacheInterface::class,
         ],
         'downloads' => [
             'enabled' => false,
@@ -61,7 +62,7 @@ it('builds config with provided options', function (): void {
     expect($config->cacheEnabled)->toBeFalse();
     expect($config->cacheTtlSeconds)->toBe(120);
     expect($config->cachePrefix)->toBe('unsplash:test:');
-    expect($config->cacheStore)->toBe(\Psr\SimpleCache\CacheInterface::class);
+    expect($config->cacheStore)->toBe(CacheInterface::class);
     expect($config->downloadsEnabled)->toBeFalse();
     expect($config->downloadsQueue)->toBe('downloads');
     expect($config->utmSource)->toBe('my_app');

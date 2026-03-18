@@ -55,7 +55,9 @@
   "scripts": {
     "test": "vendor/bin/pest",
     "phpstan": "vendor/bin/phpstan analyse",
-    "pint": "vendor/bin/pint"
+    "pint": "vendor/bin/pint",
+    "post-install-cmd": "git config core.hooksPath .githooks || true",
+    "post-update-cmd": "git config core.hooksPath .githooks || true"
   },
   "minimum-stability": "stable",
   "prefer-stable": true
