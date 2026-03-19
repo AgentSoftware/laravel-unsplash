@@ -14,13 +14,13 @@
   "license": "MIT",
   "require": {
     "php": "^8.4",
-    "illuminate/contracts": "^12.48.1",
-    "illuminate/http": "^12.48.1",
-    "illuminate/support": "^12.48.1",
+    "illuminate/contracts": "^12.48.1 || ^13.0",
+    "illuminate/http": "^12.48.1 || ^13.0",
+    "illuminate/support": "^12.48.1 || ^13.0",
     "psr/simple-cache": "^3.0"
   },
   "require-dev": {
-    "orchestra/testbench": "^10.9.0",
+    "orchestra/testbench": "^10.9.0 || ^11.0",
     "pestphp/pest": "^4.3.1",
     "pestphp/pest-plugin-laravel": "^4.0",
     "mockery/mockery": "^1.6",
