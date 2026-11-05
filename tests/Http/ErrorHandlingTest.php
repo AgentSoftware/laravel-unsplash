@@ -10,6 +10,7 @@ use AgentSoftware\Unsplash\Exceptions\RateLimitExceededException;
 use AgentSoftware\Unsplash\Exceptions\UnsplashApiException;
 use AgentSoftware\Unsplash\Http\UnsplashClient;
 use Illuminate\Http\Client\Factory as HttpFactory;
+use PHPUnit\Framework\Assert;
 
 final class ErrorTestRequest implements UnsplashRequest
 {
@@ -84,7 +85,7 @@ it('throws RateLimitExceededException on 429 response', function (): void {
 
     try {
         $client->send(new ErrorTestRequest);
-        $this->fail('Expected RateLimitExceededException');
+        Assert::fail('Expected RateLimitExceededException');
     } catch (RateLimitExceededException $e) {
         expect($e->getMessage())->toContain('Rate limit exceeded');
         expect($e->limit)->toBe(50);
@@ -105,7 +106,7 @@ it('throws UnsplashApiException on 400 response with error message', function ()
 
     try {
         $client->send(new ErrorTestRequest);
-        $this->fail('Expected UnsplashApiException');
+        Assert::fail('Expected UnsplashApiException');
     } catch (UnsplashApiException $e) {
         expect($e->getMessage())->toBe('Query parameter is missing');
         expect($e->statusCode)->toBe(400);
@@ -123,7 +124,7 @@ it('throws UnsplashApiException on 500 response', function (): void {
 
     try {
         $client->send(new ErrorTestRequest);
-        $this->fail('Expected UnsplashApiException');
+        Assert::fail('Expected UnsplashApiException');
     } catch (UnsplashApiException $e) {
         expect($e->getMessage())->toBe('Unsplash server error');
         expect($e->statusCode)->toBe(500);
@@ -143,7 +144,7 @@ it('throws UnsplashApiException on 403 response', function (): void {
 
     try {
         $client->send(new ErrorTestRequest);
-        $this->fail('Expected UnsplashApiException');
+        Assert::fail('Expected UnsplashApiException');
     } catch (UnsplashApiException $e) {
         expect($e->getMessage())->toBe('Access denied');
         expect($e->statusCode)->toBe(403);
