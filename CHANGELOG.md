@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/AgentSoftware/laravel-unsplash/compare/v0.1.4...v0.1.5) (2026-11-05)
+
+
+### Miscellaneous Chores
+
+* **ci:** add composer audit job ([#10](https://github.com/AgentSoftware/laravel-unsplash/issues/10)) ([7140d10](https://github.com/AgentSoftware/laravel-unsplash/commit/7140d105bd67de3677037ce7c0feb3b9a8a8cd32))
+
 ## [0.1.4](https://github.com/AgentSoftware/laravel-unsplash/compare/v0.1.3...v0.1.4) (2026-03-19)
 
 
